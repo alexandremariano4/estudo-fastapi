@@ -4,6 +4,7 @@ from pydantic import BaseModel
 #https://fastapi.tiangolo.com/pt/tutorial/body-multiple-params/
 
 
+
 app = FastAPI()
 
 class Item(BaseModel):
