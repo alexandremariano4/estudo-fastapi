@@ -1,5 +1,5 @@
 from enum import Enum
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Path
 from pydantic import BaseModel
 
 #https://fastapi.tiangolo.com/pt/tutorial/path-params-numeric-validations/
@@ -64,8 +64,27 @@ def item(item_id : int,
     return item
 
 @app.get("/items/")
-def read_item(skip: int = 0, limit: int = 10):
+def read_item(
+    skip: int = 0,
+    limit: int = 10
+    ):
     return fake_users_db[skip : skip + limit]
+
+
+@app.get("/itenzin/{itenzin}")
+def readar_item(
+    itenzin : int = Path(title='id que vai ser buscado',ge=15),
+    q : int | None = Query(default=None, alias='Query atoa'),
+    *,
+    t: str
+    ):
+    results = {"item":itenzin}
+    if q or t:
+        results.update({"q": q})
+        results.update({"t": t})
+    
+    return results
+
 
 @app.get("/models/{model_name}")
 def model(model_name : Sexo):
